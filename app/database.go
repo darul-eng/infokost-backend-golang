@@ -13,8 +13,6 @@ func NewDB() *sql.DB {
 	password := "admin"
 	dbname := "db_infokost"
 
-	// postgres://admin:admin@127.0.0.1:5432/db_infokost
-
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
