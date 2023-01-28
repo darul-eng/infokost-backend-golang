@@ -212,6 +212,184 @@
         }
       }
     },
+    "/boarding/{boardingId}/image" : {
+      "get": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Get boarding image by boarding Id",
+        "description": "Get boarding image by boarding Id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Create boarding image",
+        "description": "Create boarding image",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Update boarding image",
+        "description": "Update boarding image",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Delete boarding image by Id Boarding",
+        "description": "Delete boarding image by Id Boarding",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user" : {
       "get": {
         "security": [{
@@ -430,8 +608,11 @@
           "description" : {
             "type" : "string"
           },
-          "image_name" : {
-            "type" : "string"
+          "image" : {
+            "type" : "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            }
           },
           "address" : {
             "type": "string"
@@ -447,6 +628,31 @@
           }
         }
       },
+      "Image" : {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "boarding_id" : {
+            "type": "number"
+          },
+          "name" : {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateImage" : {
+        "type": "object",
+        "properties": {
+          "boarding_id" : {
+            "type": "number"
+          },
+          "name" : {
+            "type": "string"
+          }
+        }
+      },
       "CreateOrUpdate" : {
         "type": "object",
         "properties": {
@@ -456,8 +662,11 @@
           "description" : {
             "type": "string"
           },
-          "image_name" : {
-            "type": "string"
+          "image" : {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateOrUpdateImage"
+            }
           },
           "address" : {
             "type": "string"
