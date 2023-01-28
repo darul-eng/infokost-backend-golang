@@ -17,6 +17,10 @@ type UserServiceImpl struct {
 	Validate       *validator.Validate
 }
 
+func NewUserService(userRepository repository.UserRepository, DB *sql.DB, validate *validator.Validate) UserService {
+	return &UserServiceImpl{UserRepository: userRepository, DB: DB, Validate: validate}
+}
+
 func (service *UserServiceImpl) Create(ctx context.Context, request web.UserCreateRequest) web.UserResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
@@ -49,11 +53,9 @@ func (service *UserServiceImpl) Update(ctx context.Context, request web.UserUpda
 		exception.NewNotFoundError(err.Error())
 	}
 
-	user = domain.User{
-		Name:     request.Name,
-		Email:    request.Email,
-		Password: request.Password,
-	}
+	user.Name = request.Name
+	user.Email = request.Email
+	user.Password = request.Password
 
 	user = service.UserRepository.Update(ctx, tx, user)
 

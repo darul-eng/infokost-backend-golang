@@ -9,7 +9,7 @@ func ToUserResponse(user domain.User) web.UserResponse {
 	return web.UserResponse{
 		Id:    user.Id,
 		Name:  user.Name,
-		Email: user.Password,
+		Email: user.Email,
 	}
 }
 
