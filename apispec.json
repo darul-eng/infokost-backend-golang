@@ -1,0 +1,715 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Infokost RESTful API",
+    "description": "API Spec for Infokost RESTful API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/boarding" : {
+      "get" : {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "description": "List all boardings house",
+        "summary": "List all boardings house",
+        "responses": {
+          "200" : {
+            "description": "Success get all boardings house",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Boarding"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "description": "Create new boarding",
+        "summary": "Create new boarding",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create new boarding house",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Boarding"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/boarding/{boardingId}" : {
+      "get": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Get boarding by Id",
+        "description": "Get boarding by Id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get category",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/Boarding"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Update boarding by Id",
+        "description": "Update boarding by Id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update boarding",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/Boarding"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Delete boarding by Id",
+        "description": "Delete boarding by Id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete boarding",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/boarding/{boardingId}/image" : {
+      "get": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Get boarding image by boarding Id",
+        "description": "Get boarding image by boarding Id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Create boarding image",
+        "description": "Create boarding image",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Update boarding image",
+        "description": "Update boarding image",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding House API"],
+        "summary": "Delete boarding image by Id Boarding",
+        "description": "Delete boarding image by Id Boarding",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user" : {
+      "get": {
+        "security": [{
+            "BoardingAuth" : []
+          }],
+        "tags": ["User API"],
+        "summary": "List all user",
+        "description": "List all user",
+        "responses": {
+          "200": {
+            "description": "Success get user",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["User API"],
+        "summary": "Create new user",
+        "description": "Create new user",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create user",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}" : {
+      "get": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["User API"],
+        "summary": "Get user by Id",
+        "description": "Get user by Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get user",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["User API"],
+        "summary": "Update user by Id",
+        "description": "Update user by Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update user",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["User API"],
+        "summary": "Delete user by Id",
+        "description": "Delete user by Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete user",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BoardingAuth" : {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Authentication for boarding API"
+      }
+    },
+    "schemas": {
+      "Boarding": {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "number"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "image" : {
+            "type" : "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            }
+          },
+          "address" : {
+            "type": "string"
+          },
+          "contact" : {
+            "type": "string"
+          },
+          "price" : {
+            "type": "number"
+          },
+          "longlat" : {
+            "type": "number"
+          }
+        }
+      },
+      "Image" : {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "boarding_id" : {
+            "type": "number"
+          },
+          "name" : {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateImage" : {
+        "type": "object",
+        "properties": {
+          "boarding_id" : {
+            "type": "number"
+          },
+          "name" : {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdate" : {
+        "type": "object",
+        "properties": {
+          "name" : {
+            "type": "string"
+          },
+          "description" : {
+            "type": "string"
+          },
+          "image" : {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateOrUpdateImage"
+            }
+          },
+          "address" : {
+            "type": "string"
+          },
+          "contact" : {
+            "type": "string"
+          },
+          "price" : {
+            "type": "number"
+          },
+          "longlat" : {
+            "type": "number"
+          }
+        }
+      },
+      "User" : {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "name" : {
+            "type": "string"
+          },
+          "email" : {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateUser" : {
+        "type": "object",
+        "properties": {
+          "name" : {
+            "type": "string"
+          },
+          "email" : {
+            "type": "string"
+          },
+          "password" : {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
