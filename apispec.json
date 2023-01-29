@@ -608,12 +608,6 @@
           "description" : {
             "type" : "string"
           },
-          "image" : {
-            "type" : "array",
-            "items": {
-              "$ref": "#/components/schemas/Image"
-            }
-          },
           "address" : {
             "type": "string"
           },
@@ -661,12 +655,6 @@
           },
           "description" : {
             "type": "string"
-          },
-          "image" : {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreateOrUpdateImage"
-            }
           },
           "address" : {
             "type": "string"

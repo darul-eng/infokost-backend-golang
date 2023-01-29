@@ -11,6 +11,10 @@ import (
 type BoardingRepositoryImpl struct {
 }
 
+func NewBoardingRepository() BoardingRepository {
+	return &BoardingRepositoryImpl{}
+}
+
 func (repository *BoardingRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, boarding domain.Boarding) domain.Boarding {
 	SQL := `INSERT INTO boarding("name", "description", "address", "contact", "price", "longlat") VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`
 	var lastInsertId int
