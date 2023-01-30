@@ -4,7 +4,7 @@ import (
 	"backend-golang/exception"
 	"backend-golang/helper"
 	"backend-golang/model/domain"
-	"backend-golang/model/web"
+	"backend-golang/model/web/boarding"
 	"backend-golang/repository"
 	"context"
 	"database/sql"
@@ -21,7 +21,7 @@ func NewBoardingService(boardingRepository repository.BoardingRepository, DB *sq
 	return &BoardingServiceImpl{BoardingRepository: boardingRepository, DB: DB, Validate: validate}
 }
 
-func (service *BoardingServiceImpl) Create(ctx context.Context, request web.BoardingCreateRequest) web.BoardingResponse {
+func (service *BoardingServiceImpl) Create(ctx context.Context, request boarding.BoardingCreateRequest) boarding.BoardingResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
 
@@ -43,7 +43,7 @@ func (service *BoardingServiceImpl) Create(ctx context.Context, request web.Boar
 	return helper.ToBoardingResponse(boarding)
 }
 
-func (service *BoardingServiceImpl) Update(ctx context.Context, request web.BoardingUpdateRequest) web.BoardingResponse {
+func (service *BoardingServiceImpl) Update(ctx context.Context, request boarding.BoardingUpdateRequest) boarding.BoardingResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
 
@@ -81,7 +81,7 @@ func (service *BoardingServiceImpl) Delete(ctx context.Context, boardingId int) 
 	service.BoardingRepository.Delete(ctx, tx, boarding)
 }
 
-func (service *BoardingServiceImpl) FindById(ctx context.Context, boardingId int) web.BoardingResponse {
+func (service *BoardingServiceImpl) FindById(ctx context.Context, boardingId int) boarding.BoardingResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
@@ -94,7 +94,7 @@ func (service *BoardingServiceImpl) FindById(ctx context.Context, boardingId int
 	return helper.ToBoardingResponse(boarding)
 }
 
-func (service *BoardingServiceImpl) FindAll(ctx context.Context) []web.BoardingResponse {
+func (service *BoardingServiceImpl) FindAll(ctx context.Context) []boarding.BoardingResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)

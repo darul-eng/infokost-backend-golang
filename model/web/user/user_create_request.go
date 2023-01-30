@@ -1,4 +1,4 @@
-package web
+package user
 
 type UserCreateRequest struct {
 	Name     string `validate:"required" json:"name"`

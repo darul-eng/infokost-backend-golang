@@ -1,4 +1,4 @@
-package web
+package boarding
 
 type BoardingUpdateRequest struct {
 	Id          int    `validate:"required" json:"id"`

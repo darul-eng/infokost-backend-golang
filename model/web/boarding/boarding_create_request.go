@@ -1,4 +1,4 @@
-package web
+package boarding
 
 type BoardingCreateRequest struct {
 	Name        string `validate:"required" json:"name"`

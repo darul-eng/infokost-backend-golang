@@ -3,6 +3,7 @@ package controller
 import (
 	"backend-golang/helper"
 	"backend-golang/model/web"
+	"backend-golang/model/web/boarding"
 	"backend-golang/service"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
@@ -18,7 +19,7 @@ func NewBoardingController(boardingService service.BoardingService) BoardingCont
 }
 
 func (controller *BoardingControllerImpl) CreateBoarding(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	boardingCreateRequest := web.BoardingCreateRequest{}
+	boardingCreateRequest := boarding.BoardingCreateRequest{}
 	helper.ReadFromRequestBody(request, &boardingCreateRequest)
 
 	boardingResponse := controller.BoardingService.Create(request.Context(), boardingCreateRequest)
@@ -33,7 +34,7 @@ func (controller *BoardingControllerImpl) CreateBoarding(writer http.ResponseWri
 }
 
 func (controller *BoardingControllerImpl) UpdateBoarding(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	boardingUpdateRequest := web.BoardingUpdateRequest{}
+	boardingUpdateRequest := boarding.BoardingUpdateRequest{}
 	helper.ReadFromRequestBody(request, &boardingUpdateRequest)
 
 	boardingId := params.ByName("boardingId")

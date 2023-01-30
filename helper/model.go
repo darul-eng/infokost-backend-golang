@@ -2,19 +2,20 @@ package helper
 
 import (
 	"backend-golang/model/domain"
-	"backend-golang/model/web"
+	"backend-golang/model/web/boarding"
+	"backend-golang/model/web/user"
 )
 
-func ToUserResponse(user domain.User) web.UserResponse {
-	return web.UserResponse{
+func ToUserResponse(user domain.User) user.UserResponse {
+	return user.UserResponse{
 		Id:    user.Id,
 		Name:  user.Name,
 		Email: user.Email,
 	}
 }
 
-func ToUserResponses(users []domain.User) []web.UserResponse {
-	var userResponses []web.UserResponse
+func ToUserResponses(users []domain.User) []user.UserResponse {
+	var userResponses []user.UserResponse
 	for _, user := range users {
 		userResponses = append(userResponses, ToUserResponse(user))
 	}
@@ -22,8 +23,8 @@ func ToUserResponses(users []domain.User) []web.UserResponse {
 	return userResponses
 }
 
-func ToBoardingResponse(boarding domain.Boarding) web.BoardingResponse {
-	return web.BoardingResponse{
+func ToBoardingResponse(boarding domain.Boarding) boarding.BoardingResponse {
+	return boarding.BoardingResponse{
 		Id:          boarding.Id,
 		Name:        boarding.Name,
 		Description: boarding.Description,
@@ -34,8 +35,8 @@ func ToBoardingResponse(boarding domain.Boarding) web.BoardingResponse {
 	}
 }
 
-func ToBoardingResponses(boardings []domain.Boarding) []web.BoardingResponse {
-	var boardingResponses []web.BoardingResponse
+func ToBoardingResponses(boardings []domain.Boarding) []boarding.BoardingResponse {
+	var boardingResponses []boarding.BoardingResponse
 	for _, boarding := range boardings {
 		boardingResponses = append(boardingResponses, ToBoardingResponse(boarding))
 	}

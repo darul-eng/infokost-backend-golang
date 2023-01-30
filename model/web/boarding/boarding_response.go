@@ -1,4 +1,4 @@
-package web
+package boarding
 
 type BoardingResponse struct {
 	Id          int    `json:"id"`

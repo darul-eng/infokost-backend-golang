@@ -3,6 +3,7 @@ package controller
 import (
 	"backend-golang/helper"
 	"backend-golang/model/web"
+	"backend-golang/model/web/user"
 	"backend-golang/service"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
@@ -18,7 +19,7 @@ func NewUserController(userService service.UserService) UserController {
 }
 
 func (controller *UserControllerImpl) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	userCreateRequest := web.UserCreateRequest{}
+	userCreateRequest := user.UserCreateRequest{}
 	helper.ReadFromRequestBody(request, &userCreateRequest)
 
 	userResponse := controller.UserService.Create(request.Context(), userCreateRequest)
@@ -33,7 +34,7 @@ func (controller *UserControllerImpl) Create(writer http.ResponseWriter, request
 }
 
 func (controller *UserControllerImpl) Update(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	userUpdateRequest := web.UserUpdateRequest{}
+	userUpdateRequest := user.UserUpdateRequest{}
 	helper.ReadFromRequestBody(request, &userUpdateRequest)
 
 	userId := params.ByName("userId")
