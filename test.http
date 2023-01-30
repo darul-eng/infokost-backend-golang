@@ -36,3 +36,48 @@ Accept: application/json
 DELETE http://localhost:3000/api/user/3
 X-API-Key: RAHASIA
 Accept: application/json
+
+### get boarding
+GET http://localhost:3000/api/boarding
+X-API-Key: RAHASIA
+Accept: application/json
+
+### create boarding
+POST http://localhost:3000/api/boarding
+X-API-Key: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Pondok Zavair",
+  "description": "kost aman",
+  "address": "jl. nangka",
+  "contact": "081355905756",
+  "price": 4000000,
+  "long_lat": "-5.225883780597543, 119.50512807831552"
+}
+
+### update boarding
+PUT http://localhost:3000/api/boarding/2
+X-API-Key: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Pondok Zavair",
+  "description": "kost nyaman",
+  "address": "jl. nangka",
+  "contact": "081355905756",
+  "price": 4000000,
+  "long_lat": "-5.225883780597543, 119.50512807831552"
+}
+
+### get boarding by id
+GET http://localhost:3000/api/boarding/1
+X-API-Key: RAHASIA
+Accept: application/json
+
+### delete boarding
+DELETE http://localhost:3000/api/boarding/2
+X-API-Key: RAHASIA
+Accept: application/json

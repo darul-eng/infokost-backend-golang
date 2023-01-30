@@ -617,8 +617,8 @@
           "price" : {
             "type": "number"
           },
-          "longlat" : {
-            "type": "number"
+          "long_lat" : {
+            "type": "string"
           }
         }
       },
@@ -665,8 +665,8 @@
           "price" : {
             "type": "number"
           },
-          "longlat" : {
-            "type": "number"
+          "long_lat" : {
+            "type": "string"
           }
         }
       },

@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"backend-golang/exception"
 	"backend-golang/helper"
 	"backend-golang/model/web"
 	"backend-golang/service"
@@ -39,9 +38,7 @@ func (controller *UserControllerImpl) Update(writer http.ResponseWriter, request
 
 	userId := params.ByName("userId")
 	id, err := strconv.Atoi(userId)
-	if err != nil {
-		exception.NewNotFoundError(err.Error())
-	}
+	helper.PanicIfError(err)
 
 	userUpdateRequest.Id = id
 

@@ -17,6 +17,10 @@ type BoardingServiceImpl struct {
 	Validate           *validator.Validate
 }
 
+func NewBoardingService(boardingRepository repository.BoardingRepository, DB *sql.DB, validate *validator.Validate) BoardingService {
+	return &BoardingServiceImpl{BoardingRepository: boardingRepository, DB: DB, Validate: validate}
+}
+
 func (service *BoardingServiceImpl) Create(ctx context.Context, request web.BoardingCreateRequest) web.BoardingResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
@@ -90,7 +94,7 @@ func (service *BoardingServiceImpl) FindById(ctx context.Context, boardingId int
 	return helper.ToBoardingResponse(boarding)
 }
 
-func (service *BoardingServiceImpl) FIndAll(ctx context.Context) []web.BoardingResponse {
+func (service *BoardingServiceImpl) FindAll(ctx context.Context) []web.BoardingResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
