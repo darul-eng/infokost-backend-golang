@@ -1,0 +1,101 @@
+package service
+
+import (
+	"backend-golang/exception"
+	"backend-golang/helper"
+	"backend-golang/model/domain"
+	"backend-golang/model/web"
+	"backend-golang/repository"
+	"context"
+	"database/sql"
+	"github.com/go-playground/validator/v10"
+)
+
+type BoardingServiceImpl struct {
+	BoardingRepository repository.BoardingRepository
+	DB                 *sql.DB
+	Validate           *validator.Validate
+}
+
+func (service *BoardingServiceImpl) Create(ctx context.Context, request web.BoardingCreateRequest) web.BoardingResponse {
+	err := service.Validate.Struct(request)
+	helper.PanicIfError(err)
+
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	boarding := domain.Boarding{
+		Name:        request.Name,
+		Description: request.Description,
+		Address:     request.Address,
+		Contact:     request.Contact,
+		Price:       request.Price,
+		LongLat:     request.LongLat,
+	}
+
+	boarding = service.BoardingRepository.Save(ctx, tx, boarding)
+
+	return helper.ToBoardingResponse(boarding)
+}
+
+func (service *BoardingServiceImpl) Update(ctx context.Context, request web.BoardingUpdateRequest) web.BoardingResponse {
+	err := service.Validate.Struct(request)
+	helper.PanicIfError(err)
+
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	boarding, err := service.BoardingRepository.FindById(ctx, tx, request.Id)
+	if err != nil {
+		exception.NewNotFoundError(err.Error())
+	}
+
+	boarding.Name = request.Name
+	boarding.Description = request.Description
+	boarding.Address = request.Address
+	boarding.Contact = request.Contact
+	boarding.Price = request.Price
+	boarding.LongLat = request.LongLat
+
+	boarding = service.BoardingRepository.Update(ctx, tx, boarding)
+
+	return helper.ToBoardingResponse(boarding)
+}
+
+func (service *BoardingServiceImpl) Delete(ctx context.Context, boardingId int) {
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	boarding, err := service.BoardingRepository.FindById(ctx, tx, boardingId)
+	if err != nil {
+		exception.NewNotFoundError(err.Error())
+	}
+
+	service.BoardingRepository.Delete(ctx, tx, boarding)
+}
+
+func (service *BoardingServiceImpl) FindById(ctx context.Context, boardingId int) web.BoardingResponse {
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	boarding, err := service.BoardingRepository.FindById(ctx, tx, boardingId)
+	if err != nil {
+		exception.NewNotFoundError(err.Error())
+	}
+
+	return helper.ToBoardingResponse(boarding)
+}
+
+func (service *BoardingServiceImpl) FIndAll(ctx context.Context) []web.BoardingResponse {
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	boardings := service.BoardingRepository.FindAll(ctx, tx)
+
+	return helper.ToBoardingResponses(boardings)
+}
