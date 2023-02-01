@@ -1,7 +1,6 @@
-package domain
+package image
 
-type Image struct {
-	Id         int    `json:"id"`
+type ImageCreateRequest struct {
 	BoardingId int    `json:"boarding_id"`
 	Name       string `json:"name"`
 }

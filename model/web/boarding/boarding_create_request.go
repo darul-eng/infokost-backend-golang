@@ -1,4 +1,4 @@
-package web
+package boarding
 
 type BoardingCreateRequest struct {
 	Name        string `validate:"required" json:"name"`
@@ -6,5 +6,5 @@ type BoardingCreateRequest struct {
 	Address     string `validate:"required" json:"address"`
 	Contact     string `validate:"required" json:"contact"`
 	Price       int    `validate:"required" json:"price"`
-	LongLat     int    `validate:"required" json:"long_lat"`
+	LongLat     string `validate:"required" json:"long_lat"`
 }

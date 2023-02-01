@@ -4,7 +4,7 @@ import (
 	"backend-golang/exception"
 	"backend-golang/helper"
 	"backend-golang/model/domain"
-	"backend-golang/model/web"
+	"backend-golang/model/web/user"
 	"backend-golang/repository"
 	"context"
 	"database/sql"
@@ -21,7 +21,7 @@ func NewUserService(userRepository repository.UserRepository, DB *sql.DB, valida
 	return &UserServiceImpl{UserRepository: userRepository, DB: DB, Validate: validate}
 }
 
-func (service *UserServiceImpl) Create(ctx context.Context, request web.UserCreateRequest) web.UserResponse {
+func (service *UserServiceImpl) Create(ctx context.Context, request user.UserCreateRequest) user.UserResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
 
@@ -40,7 +40,7 @@ func (service *UserServiceImpl) Create(ctx context.Context, request web.UserCrea
 	return helper.ToUserResponse(user)
 }
 
-func (service *UserServiceImpl) Update(ctx context.Context, request web.UserUpdateRequest) web.UserResponse {
+func (service *UserServiceImpl) Update(ctx context.Context, request user.UserUpdateRequest) user.UserResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
 
@@ -50,7 +50,7 @@ func (service *UserServiceImpl) Update(ctx context.Context, request web.UserUpda
 
 	user, err := service.UserRepository.FindById(ctx, tx, request.Id)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	user.Name = request.Name
@@ -69,26 +69,26 @@ func (service *UserServiceImpl) Delete(ctx context.Context, userId int) {
 
 	user, err := service.UserRepository.FindById(ctx, tx, userId)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	service.UserRepository.Delete(ctx, tx, user)
 }
 
-func (service *UserServiceImpl) FindById(ctx context.Context, userId int) web.UserResponse {
+func (service *UserServiceImpl) FindById(ctx context.Context, userId int) user.UserResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
 
 	user, err := service.UserRepository.FindById(ctx, tx, userId)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	return helper.ToUserResponse(user)
 }
 
-func (service *UserServiceImpl) FindAll(ctx context.Context) []web.UserResponse {
+func (service *UserServiceImpl) FindAll(ctx context.Context) []user.UserResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)

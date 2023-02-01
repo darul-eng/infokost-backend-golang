@@ -1,4 +1,4 @@
-package web
+package user
 
 type UserUpdateRequest struct {
 	Id       int    `validate:"required" json:"id"`
