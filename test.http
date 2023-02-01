@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### find user by id
-GET http://localhost:3000/api/user/1
+GET http://localhost:3000/api/user/3
 X-API-Key: RAHASIA
 Accept: application/json
 
@@ -73,11 +73,54 @@ Content-Type: application/json
 }
 
 ### get boarding by id
-GET http://localhost:3000/api/boarding/1
+GET http://localhost:3000/api/boarding/2
 X-API-Key: RAHASIA
 Accept: application/json
 
 ### delete boarding
 DELETE http://localhost:3000/api/boarding/2
+X-API-Key: RAHASIA
+Accept: application/json
+
+
+### create image from boarding
+POST http://localhost:3000/api/boarding/3/image
+X-API-Key: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "boarding_id": 3,
+  "name": "gambar-1.jpg"
+}
+
+### get all boarding image
+GET http://localhost:3000/api/boarding/1/image
+X-API-Key: RAHASIA
+Accept: application/json
+
+### delete all image of boarding
+DELETE http://localhost:3000/api/boarding/1/image
+X-API-Key: RAHASIA
+Accept: application/json
+
+### get image of boarding by image id
+GET http://localhost:3000/api/boarding/1/image/5
+X-API-Key: RAHASIA
+Accept: application/json
+
+### update image of boarding by image id
+PUT http://localhost:3000/api/boarding/1/image/5
+X-API-Key: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "boarding_id": 1,
+  "name": "gambar ke dua"
+}
+
+### delete image of boarding by image id
+DELETE http://localhost:3000/api/boarding/3/image/6
 X-API-Key: RAHASIA
 Accept: application/json

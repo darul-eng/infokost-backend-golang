@@ -3,14 +3,15 @@ package helper
 import (
 	"backend-golang/model/domain"
 	"backend-golang/model/web/boarding"
+	"backend-golang/model/web/image"
 	"backend-golang/model/web/user"
 )
 
-func ToUserResponse(user domain.User) user.UserResponse {
+func ToUserResponse(data domain.User) user.UserResponse {
 	return user.UserResponse{
-		Id:    user.Id,
-		Name:  user.Name,
-		Email: user.Email,
+		Id:    data.Id,
+		Name:  data.Name,
+		Email: data.Email,
 	}
 }
 
@@ -23,15 +24,15 @@ func ToUserResponses(users []domain.User) []user.UserResponse {
 	return userResponses
 }
 
-func ToBoardingResponse(boarding domain.Boarding) boarding.BoardingResponse {
+func ToBoardingResponse(data domain.Boarding) boarding.BoardingResponse {
 	return boarding.BoardingResponse{
-		Id:          boarding.Id,
-		Name:        boarding.Name,
-		Description: boarding.Description,
-		Address:     boarding.Address,
-		Contact:     boarding.Contact,
-		Price:       boarding.Price,
-		LongLat:     boarding.LongLat,
+		Id:          data.Id,
+		Name:        data.Name,
+		Description: data.Description,
+		Address:     data.Address,
+		Contact:     data.Contact,
+		Price:       data.Price,
+		LongLat:     data.LongLat,
 	}
 }
 
@@ -42,4 +43,21 @@ func ToBoardingResponses(boardings []domain.Boarding) []boarding.BoardingRespons
 	}
 
 	return boardingResponses
+}
+
+func ToImageResponse(data domain.Image) image.ImageResponse {
+	return image.ImageResponse{
+		Id:         data.Id,
+		BoardingId: data.BoardingId,
+		Name:       data.Name,
+	}
+}
+
+func ToImageResponses(images []domain.Image) []image.ImageResponse {
+	var imageResponses []image.ImageResponse
+	for _, image := range images {
+		imageResponses = append(imageResponses, ToImageResponse(image))
+	}
+
+	return imageResponses
 }

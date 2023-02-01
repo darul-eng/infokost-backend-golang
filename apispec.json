@@ -217,7 +217,7 @@
         "security": [{
           "BoardingAuth" : []
         }],
-        "tags": ["Boarding House API"],
+        "tags": ["Boarding Image API"],
         "summary": "Get boarding image by boarding Id",
         "description": "Get boarding image by boarding Id",
         "parameters": [
@@ -258,7 +258,7 @@
         "security": [{
           "BoardingAuth" : []
         }],
-        "tags": ["Boarding House API"],
+        "tags": ["Boarding Image API"],
         "summary": "Create boarding image",
         "description": "Create boarding image",
         "parameters": [
@@ -304,18 +304,106 @@
           }
         }
       },
-      "put": {
+      "delete": {
         "security": [{
           "BoardingAuth" : []
         }],
-        "tags": ["Boarding House API"],
-        "summary": "Update boarding image",
-        "description": "Update boarding image",
+        "tags": ["Boarding Image API"],
+        "summary": "Delete boarding image by Id Boarding",
+        "description": "Delete boarding image by Id Boarding",
         "parameters": [
           {
             "name": "boardingId",
             "in": "path",
             "description": "Boarding Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/boarding/{boardingId}/image/{imageId}" : {
+      "get": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding Image API"],
+        "summary": "Get boarding image by image Id",
+        "description": "Get boarding image by image Id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "Image Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get boarding image",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [{
+          "BoardingAuth" : []
+        }],
+        "tags": ["Boarding Image API"],
+        "summary": "Update boarding image by image id",
+        "description": "Update boarding image by image id",
+        "parameters": [
+          {
+            "name": "boardingId",
+            "in": "path",
+            "description": "Boarding Id"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "Image Id"
           }
         ],
         "requestBody": {
@@ -358,14 +446,19 @@
         "security": [{
           "BoardingAuth" : []
         }],
-        "tags": ["Boarding House API"],
-        "summary": "Delete boarding image by Id Boarding",
-        "description": "Delete boarding image by Id Boarding",
+        "tags": ["Boarding Image API"],
+        "summary": "Delete boarding image by Boarding Id & Image Id",
+        "description": "Delete boarding image by Boarding Id & image Id",
         "parameters": [
           {
             "name": "boardingId",
             "in": "path",
             "description": "Boarding Id"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "Image Id"
           }
         ],
         "responses": {

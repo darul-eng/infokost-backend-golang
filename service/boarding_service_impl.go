@@ -53,7 +53,7 @@ func (service *BoardingServiceImpl) Update(ctx context.Context, request boarding
 
 	boarding, err := service.BoardingRepository.FindById(ctx, tx, request.Id)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	boarding.Name = request.Name
@@ -75,7 +75,7 @@ func (service *BoardingServiceImpl) Delete(ctx context.Context, boardingId int) 
 
 	boarding, err := service.BoardingRepository.FindById(ctx, tx, boardingId)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	service.BoardingRepository.Delete(ctx, tx, boarding)
@@ -88,7 +88,7 @@ func (service *BoardingServiceImpl) FindById(ctx context.Context, boardingId int
 
 	boarding, err := service.BoardingRepository.FindById(ctx, tx, boardingId)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	return helper.ToBoardingResponse(boarding)

@@ -50,7 +50,7 @@ func (service *UserServiceImpl) Update(ctx context.Context, request user.UserUpd
 
 	user, err := service.UserRepository.FindById(ctx, tx, request.Id)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	user.Name = request.Name
@@ -69,7 +69,7 @@ func (service *UserServiceImpl) Delete(ctx context.Context, userId int) {
 
 	user, err := service.UserRepository.FindById(ctx, tx, userId)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	service.UserRepository.Delete(ctx, tx, user)
@@ -82,7 +82,7 @@ func (service *UserServiceImpl) FindById(ctx context.Context, userId int) user.U
 
 	user, err := service.UserRepository.FindById(ctx, tx, userId)
 	if err != nil {
-		exception.NewNotFoundError(err.Error())
+		panic(exception.NewNotFoundError(err.Error()))
 	}
 
 	return helper.ToUserResponse(user)

@@ -11,6 +11,10 @@ import (
 type ImageRepositoryImpl struct {
 }
 
+func NewImageRepository() ImageRepository {
+	return &ImageRepositoryImpl{}
+}
+
 func (repository *ImageRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, image domain.Image) domain.Image {
 	SQL := `INSERT INTO image("boarding_id", "name") VALUES ($1, $2) RETURNING id`
 	var lastInsertId int
@@ -38,6 +42,12 @@ func (repository *ImageRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, i
 	helper.PanicIfError(err)
 }
 
+func (repository *ImageRepositoryImpl) DeleteAll(ctx context.Context, tx *sql.Tx, boardingId int) {
+	SQL := `DELETE FROM image where boarding_id=$1`
+	_, err := tx.ExecContext(ctx, SQL, boardingId)
+	helper.PanicIfError(err)
+}
+
 func (repository *ImageRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, imageId int) (domain.Image, error) {
 	SQL := `SELECT id, boarding_id, name FROM image WHERE id=$1`
 	rows, err := tx.QueryContext(ctx, SQL, imageId)
@@ -55,9 +65,9 @@ func (repository *ImageRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx,
 	}
 }
 
-func (repository *ImageRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) []domain.Image {
-	SQL := `SELECT id, boarding_id, name FROM image`
-	rows, err := tx.QueryContext(ctx, SQL)
+func (repository *ImageRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx, boardingId int) []domain.Image {
+	SQL := `SELECT id, boarding_id, name FROM image WHERE boarding_id=$1`
+	rows, err := tx.QueryContext(ctx, SQL, boardingId)
 	helper.PanicIfError(err)
 	defer rows.Close()
 
@@ -72,4 +82,3 @@ func (repository *ImageRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) 
 
 	return images
 }
-
