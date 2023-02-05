@@ -34,8 +34,7 @@ func setupTestDB() *sql.DB {
 	return db
 }
 
-func setupRouter() http.Handler {
-	db := app.NewDB()
+func setupRouter(db *sql.DB) http.Handler {
 	validate := validator.New()
 	userRepository := repository.NewUserRepository()
 	userService := service.NewUserService(userRepository, db, validate)
