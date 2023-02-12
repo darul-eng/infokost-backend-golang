@@ -2,7 +2,7 @@ package user
 
 type UserUpdateRequest struct {
 	Id       int    `validate:"required" json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name     string `validate:"required" json:"name"`
+	Email    string `validate:"required" json:"email"`
+	Password string `validate:"required" json:"password"`
 }
